@@ -38,6 +38,11 @@ func (p *pool) message(message *protogen.Message) {
 		return
 	}
 
+	// Skip opaque API messages - fields are private and cannot be accessed directly.
+	if p.IsOpaque(message) {
+		return
+	}
+
 	p.once = true
 	ccTypeName := message.GoIdent
 
