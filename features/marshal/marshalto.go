@@ -567,6 +567,12 @@ func (p *marshal) message(message *protogen.Message) {
 		return
 	}
 
+	// Skip opaque API messages - fields are private and cannot be accessed directly.
+	// The standard protobuf library's generated Marshal will be used instead.
+	if p.IsOpaque(message) {
+		return
+	}
+
 	p.once = true
 
 	var numGen counter
