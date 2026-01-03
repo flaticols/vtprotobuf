@@ -1,0 +1,69 @@
+edition = "2023";
+
+option go_package = "testproto/editions";
+
+// Simple nested message for testing lazy fields
+message NestedMessage {
+  int32 id = 1;
+  string name = 2;
+  bytes data = 3;
+}
+
+// Message with lazy field (only works with opaque API)
+message MessageWithLazyField {
+  int32 id = 1;
+  string name = 2;
+  // Lazy field - parsed on first access
+  NestedMessage nested = 3 [lazy = true];
+}
+
+// Regular message without lazy fields (should generate vtprotobuf methods)
+message RegularMessage {
+  int32 id = 1;
+  string name = 2;
+  repeated int64 values = 3;
+  NestedMessage nested = 4;
+  map<string, int32> metadata = 5;
+}
+
+// Message demonstrating all scalar types in editions syntax
+message ScalarTypes {
+  double double_field = 1;
+  float float_field = 2;
+  int32 int32_field = 3;
+  int64 int64_field = 4;
+  uint32 uint32_field = 5;
+  uint64 uint64_field = 6;
+  sint32 sint32_field = 7;
+  sint64 sint64_field = 8;
+  fixed32 fixed32_field = 9;
+  fixed64 fixed64_field = 10;
+  sfixed32 sfixed32_field = 11;
+  sfixed64 sfixed64_field = 12;
+  bool bool_field = 13;
+  string string_field = 14;
+  bytes bytes_field = 15;
+}
+
+// Enum in editions syntax
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_INACTIVE = 2;
+}
+
+// Message with enum
+message MessageWithEnum {
+  int32 id = 1;
+  Status status = 2;
+}
+
+// Message with oneof
+message MessageWithOneof {
+  int32 id = 1;
+  oneof choice {
+    string string_choice = 2;
+    int32 int_choice = 3;
+    NestedMessage message_choice = 4;
+  }
+}
