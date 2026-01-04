@@ -67,3 +67,25 @@ message MessageWithOneof {
     NestedMessage message_choice = 4;
   }
 }
+
+// Message with explicit IMPLICIT field presence (default behavior in edition 2023)
+// These fields should be non-pointer types in Go
+message ImplicitFieldPresence {
+  string currency_code = 1 [features.field_presence = IMPLICIT];
+  int64 units = 2 [features.field_presence = IMPLICIT];
+  int32 scale = 3 [features.field_presence = IMPLICIT];
+  bool is_active = 4 [features.field_presence = IMPLICIT];
+  float rate = 5 [features.field_presence = IMPLICIT];
+  double amount = 6 [features.field_presence = IMPLICIT];
+}
+
+// Message with EXPLICIT field presence for comparison
+// These fields should be pointer types in Go
+message ExplicitFieldPresence {
+  string currency_code = 1 [features.field_presence = EXPLICIT];
+  int64 units = 2 [features.field_presence = EXPLICIT];
+  int32 scale = 3 [features.field_presence = EXPLICIT];
+  bool is_active = 4 [features.field_presence = EXPLICIT];
+  float rate = 5 [features.field_presence = EXPLICIT];
+  double amount = 6 [features.field_presence = EXPLICIT];
+}

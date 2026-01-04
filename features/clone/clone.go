@@ -40,9 +40,10 @@ func (p *clone) Name() string {
 
 func (p *clone) GenerateFile(file *protogen.File) bool {
 	proto3 := file.Desc.Syntax() == protoreflect.Proto3
+	proto2 := file.Desc.Syntax() == protoreflect.Proto2
 
 	for _, message := range file.Messages {
-		p.processMessage(proto3, message)
+		p.processMessage(proto3, proto2, message)
 	}
 
 	return p.once
@@ -151,10 +152,10 @@ func (p *clone) cloneField(lhsBase, rhsBase string, allFieldsNullable bool, fiel
 	p.P(`}`)
 }
 
-func (p *clone) generateCloneMethodsForMessage(proto3 bool, message *protogen.Message) {
+func (p *clone) generateCloneMethodsForMessage(proto2 bool, message *protogen.Message) {
 	ccTypeName := message.GoIdent.GoName
 	p.P(`func (m *`, ccTypeName, `) `, cloneName, `() *`, ccTypeName, ` {`)
-	p.body(!proto3, ccTypeName, message)
+	p.body(proto2, ccTypeName, message)
 	p.P(`}`)
 	p.P()
 
@@ -241,7 +242,11 @@ func (p *clone) bodyForOneOf(ccTypeName string, field *protogen.Field) {
 
 	p.P("r", " := new(", ccTypeName, `)`)
 
-	if !isReference(false, field) {
+	// In oneof wrappers, scalar fields are never pointers (only messages and bytes are references)
+	// Don't use isReference() here as it checks HasPresence() which is wrong for Edition 2023 oneofs
+	fieldIsReference := field.Message != nil || field.Desc.Kind() == protoreflect.BytesKind ||
+		field.Desc.Cardinality() == protoreflect.Repeated
+	if !fieldIsReference {
 		p.P(`r.`, field.GoName, ` = m.`, field.GoName)
 		p.P(`return r`)
 		return
@@ -296,9 +301,9 @@ func (p *clone) processMessageOneofs(message *protogen.Message) {
 	}
 }
 
-func (p *clone) processMessage(proto3 bool, message *protogen.Message) {
+func (p *clone) processMessage(proto3, proto2 bool, message *protogen.Message) {
 	for _, nested := range message.Messages {
-		p.processMessage(proto3, nested)
+		p.processMessage(proto3, proto2, nested)
 	}
 
 	if message.Desc.IsMapEntry() {
@@ -313,19 +318,34 @@ func (p *clone) processMessage(proto3 bool, message *protogen.Message) {
 
 	p.once = true
 
-	p.generateCloneMethodsForMessage(proto3, message)
+	p.generateCloneMethodsForMessage(proto2, message)
 	p.processMessageOneofs(message)
 }
 
 // isReference checks whether the Go equivalent of the given field is of reference type, i.e., can be nil.
 func isReference(allFieldsNullable bool, field *protogen.Field) bool {
-	if allFieldsNullable || field.Oneof != nil || field.Message != nil || field.Desc.Cardinality() == protoreflect.Repeated || field.Desc.Kind() == protoreflect.BytesKind {
+	// Check for oneof fields - but respect HasPresence for the actual field value
+	if field.Oneof != nil {
+		// For non-synthetic oneofs, the field is inside a wrapper struct
+		// and should use HasPresence to determine if it's a pointer
+		if !field.Oneof.Desc.IsSynthetic() {
+			// Use HasPresence to determine if the field value is a pointer
+			if isScalar(field.Desc.Kind()) {
+				return field.Desc.HasPresence()
+			}
+		}
+		// For synthetic oneofs (proto3 optional), the field is always a pointer
+		return true
+	}
+	
+	if allFieldsNullable || field.Message != nil || field.Desc.Cardinality() == protoreflect.Repeated || field.Desc.Kind() == protoreflect.BytesKind {
 		return true
 	}
 	if !isScalar(field.Desc.Kind()) {
 		panic("unexpected non-reference, non-scalar field")
 	}
-	return false
+	// Scalar fields with presence (e.g., proto3 optional, proto2, or edition EXPLICIT) are pointers
+	return field.Desc.HasPresence()
 }
 
 func isScalar(kind protoreflect.Kind) bool {
