@@ -592,11 +592,17 @@ func (p *unmarshal) fieldItem(field *protogen.Field, fieldname string, message *
 		if oneof {
 			if p.unsafe {
 				p.P(`v := dAtA[iNdEx:postIndex]`)
+				p.P(`m.`, fieldname, ` = &`, field.GoIdent, "{", field.GoName, `: v}`)
 			} else {
+				// Check if existing oneof is same type, reuse capacity
+				p.P(`if oneof, ok := m.`, fieldname, `.(*`, field.GoIdent, `); ok {`)
+				p.P(`oneof.`, field.GoName, ` = append(oneof.`, field.GoName, `[:0], dAtA[iNdEx:postIndex]...)`)
+				p.P(`} else {`)
 				p.P(`v := make([]byte, postIndex-iNdEx)`)
 				p.P(`copy(v, dAtA[iNdEx:postIndex])`)
+				p.P(`m.`, fieldname, ` = &`, field.GoIdent, "{", field.GoName, `: v}`)
+				p.P(`}`)
 			}
-			p.P(`m.`, fieldname, ` = &`, field.GoIdent, "{", field.GoName, `: v}`)
 		} else if repeated {
 			if p.unsafe {
 				p.P(`m.`, fieldname, ` = append(m.`, fieldname, `, dAtA[iNdEx:postIndex])`)

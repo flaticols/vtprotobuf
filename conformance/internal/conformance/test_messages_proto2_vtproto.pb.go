@@ -13291,9 +13291,13 @@ func (m *TestAllTypesProto2) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := make([]byte, postIndex-iNdEx)
-			copy(v, dAtA[iNdEx:postIndex])
-			m.OneofField = &TestAllTypesProto2_OneofBytes{OneofBytes: v}
+			if oneof, ok := m.OneofField.(*TestAllTypesProto2_OneofBytes); ok {
+				oneof.OneofBytes = append(oneof.OneofBytes[:0], dAtA[iNdEx:postIndex]...)
+			} else {
+				v := make([]byte, postIndex-iNdEx)
+				copy(v, dAtA[iNdEx:postIndex])
+				m.OneofField = &TestAllTypesProto2_OneofBytes{OneofBytes: v}
+			}
 			iNdEx = postIndex
 		case 115:
 			if wireType != 0 {

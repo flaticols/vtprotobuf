@@ -2133,9 +2133,13 @@ func (m *UnsafeTest_Sub4) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := make([]byte, postIndex-iNdEx)
-			copy(v, dAtA[iNdEx:postIndex])
-			m.Foo = &UnsafeTest_Sub4_B{B: v}
+			if oneof, ok := m.Foo.(*UnsafeTest_Sub4_B); ok {
+				oneof.B = append(oneof.B[:0], dAtA[iNdEx:postIndex]...)
+			} else {
+				v := make([]byte, postIndex-iNdEx)
+				copy(v, dAtA[iNdEx:postIndex])
+				m.Foo = &UnsafeTest_Sub4_B{B: v}
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

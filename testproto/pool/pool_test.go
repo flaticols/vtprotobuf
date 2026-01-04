@@ -186,3 +186,48 @@ func Test_Pool_Optional(t *testing.T) {
 	mFromPool := MemoryPoolExtensionFromVTPool()
 	require.True(t, mFromPool.EqualVT(&MemoryPoolExtension{}))
 }
+
+func Test_Pool_Oneof_Bytes_Capacity(t *testing.T) {
+	// Test that ResetVT preserves byte slice capacity in oneof fields
+	largeData := make([]byte, 1024)
+	for i := range largeData {
+		largeData[i] = byte(i % 256)
+	}
+
+	msg := OneofTestFromVTPool()
+	msg.Test = &OneofTest_Test4{Test4: largeData}
+
+	// Get the capacity before reset
+	oneof := msg.Test.(*OneofTest_Test4)
+	capBefore := cap(oneof.Test4)
+	require.Equal(t, 1024, capBefore)
+
+	// ResetVT should preserve the oneof wrapper with zeroed but capacity-preserved slice
+	msg.ResetVT()
+
+	// After reset, the oneof should still be set (with preserved wrapper)
+	if msg.Test != nil {
+		oneof, ok := msg.Test.(*OneofTest_Test4)
+		if ok {
+			// Capacity should be preserved
+			assert.Equal(t, 1024, cap(oneof.Test4), "byte slice capacity should be preserved")
+			// Length should be 0
+			assert.Equal(t, 0, len(oneof.Test4), "byte slice length should be 0")
+		}
+	}
+
+	// Now unmarshal new data - it should reuse the capacity
+	smallData := []byte{1, 2, 3}
+	msg2 := &OneofTest{Test: &OneofTest_Test4{Test4: smallData}}
+	msg2Bytes, err := msg2.MarshalVT()
+	require.NoError(t, err)
+
+	err = msg.UnmarshalVT(msg2Bytes)
+	require.NoError(t, err)
+
+	oneof2, ok := msg.Test.(*OneofTest_Test4)
+	require.True(t, ok)
+	assert.Equal(t, smallData, oneof2.Test4)
+	// Verify capacity was preserved end-to-end (reused from pool after unmarshal)
+	assert.Equal(t, 1024, cap(oneof2.Test4), "capacity should be reused from pool after unmarshal")
+}

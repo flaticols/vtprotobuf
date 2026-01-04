@@ -1,0 +1,141 @@
+[2026-01-04 09:48:52] Daemon started (interval: 5s, auto-commit: false, auto-push: false)
+[2026-01-04 09:48:52] Using database: /Users/den/Developer/vtprotobuf/.beads/beads.db
+[2026-01-04 09:48:52] Database opened: /Users/den/Developer/vtprotobuf/.beads/beads.db
+[2026-01-04 09:48:52] Upgrading .beads/.gitignore...
+[2026-01-04 09:48:52] Warning: failed to upgrade .gitignore: open .beads/.gitignore: no such file or directory
+[2026-01-04 09:48:52] Repository fingerprint validated: 22276f55
+[2026-01-04 09:48:52] Starting RPC server: /Users/den/Developer/vtprotobuf/.beads/bd.sock
+[2026-01-04 09:48:52] RPC server ready (socket listening)
+[2026-01-04 09:48:52] Registered in global registry
+[2026-01-04 09:48:52] Starting sync cycle...
+[2026-01-04 09:48:52] Exported to JSONL
+[2026-01-04 09:48:52] Sync branch pull failed: failed to create worktree: failed to create worktree: exit status 128
+Output: Preparing worktree (checking out 'main')
+fatal: 'main' is already used by worktree at '/Users/den/Developer/vtprotobuf'
+
+[2026-01-04 09:48:52] Monitoring parent process (PID 0)
+[2026-01-04 09:48:52] Using event-driven mode
+[2026-01-04 09:48:52] Mutation detected: create vtprotobuf-utv
+[2026-01-04 09:48:52] Mutation detected: create vtprotobuf-624
+[2026-01-04 09:48:53] Mutation detected: create vtprotobuf-1an
+[2026-01-04 09:48:53] Mutation detected: create vtprotobuf-iqb
+[2026-01-04 09:48:53] Mutation detected: create vtprotobuf-c0z
+[2026-01-04 09:48:53] Mutation detected: create vtprotobuf-rww
+[2026-01-04 09:48:54] Export triggered by mutation events
+[2026-01-04 09:48:54] Starting export...
+[2026-01-04 09:48:54] Exported to JSONL
+[2026-01-04 09:48:54] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:48:54] Export complete
+[2026-01-04 09:48:54] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:48:54] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:48:55] Import triggered by file change
+[2026-01-04 09:48:55] Starting auto-import...
+[2026-01-04 09:48:55] Skipping import: JSONL content unchanged
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-o81
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-0gq
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-duh
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-e53
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-0fd
+[2026-01-04 09:49:17] Mutation detected: create vtprotobuf-1qe
+[2026-01-04 09:49:18] Export triggered by mutation events
+[2026-01-04 09:49:18] Starting export...
+[2026-01-04 09:49:18] Exported to JSONL
+[2026-01-04 09:49:18] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:49:18] Export complete
+[2026-01-04 09:49:18] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:49:18] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:49:19] Import triggered by file change
+[2026-01-04 09:49:19] Starting auto-import...
+[2026-01-04 09:49:19] Skipping import: JSONL content unchanged
+[2026-01-04 09:49:32] Mutation detected: create vtprotobuf-wx0
+[2026-01-04 09:49:33] Export triggered by mutation events
+[2026-01-04 09:49:33] Starting export...
+[2026-01-04 09:49:33] Exported to JSONL
+[2026-01-04 09:49:33] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:49:33] Export complete
+[2026-01-04 09:49:33] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:49:33] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:49:34] Import triggered by file change
+[2026-01-04 09:49:34] Starting auto-import...
+[2026-01-04 09:49:34] Skipping import: JSONL content unchanged
+[2026-01-04 09:52:33] Mutation detected: create vtprotobuf-tde
+[2026-01-04 09:52:33] Mutation detected: create vtprotobuf-imn
+[2026-01-04 09:52:33] Mutation detected: create vtprotobuf-8ai
+[2026-01-04 09:52:33] Mutation detected: create vtprotobuf-013
+[2026-01-04 09:52:33] Mutation detected: create vtprotobuf-hsj
+[2026-01-04 09:52:34] Mutation detected: create vtprotobuf-0ac
+[2026-01-04 09:52:34] Export triggered by mutation events
+[2026-01-04 09:52:34] Starting export...
+[2026-01-04 09:52:34] Exported to JSONL
+[2026-01-04 09:52:34] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:52:34] Export complete
+[2026-01-04 09:52:34] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:52:34] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:52:35] Import triggered by file change
+[2026-01-04 09:52:35] Starting auto-import...
+[2026-01-04 09:52:35] Skipping import: JSONL content unchanged
+[2026-01-04 09:52:53] Mutation detected: update vtprotobuf-8ai
+[2026-01-04 09:52:54] Export triggered by mutation events
+[2026-01-04 09:52:54] Starting export...
+[2026-01-04 09:52:54] Exported to JSONL
+[2026-01-04 09:52:54] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:52:54] Export complete
+[2026-01-04 09:52:54] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:52:54] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:52:55] Import triggered by file change
+[2026-01-04 09:52:55] Starting auto-import...
+[2026-01-04 09:52:55] Skipping import: JSONL content unchanged
+[2026-01-04 09:53:03] Mutation detected: update vtprotobuf-013
+[2026-01-04 09:53:04] Export triggered by mutation events
+[2026-01-04 09:53:04] Starting export...
+[2026-01-04 09:53:04] Exported to JSONL
+[2026-01-04 09:53:04] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:53:04] Export complete
+[2026-01-04 09:53:04] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:53:04] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:53:05] Import triggered by file change
+[2026-01-04 09:53:05] Starting auto-import...
+[2026-01-04 09:53:05] Skipping import: JSONL content unchanged
+[2026-01-04 09:55:55] Git HEAD change detected: /Users/den/Developer/vtprotobuf/.git/HEAD
+[2026-01-04 09:55:56] Import triggered by file change
+[2026-01-04 09:55:56] Starting auto-import...
+[2026-01-04 09:55:56] Skipping import: JSONL content unchanged
+[2026-01-04 09:59:03] JSONL removed/renamed, re-establishing watch
+[2026-01-04 09:59:03] Successfully re-established JSONL watch after 50ms
+[2026-01-04 09:59:03] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 09:59:04] Import triggered by file change
+[2026-01-04 09:59:04] Starting auto-import...
+[2026-01-04 09:59:04] Skipping import: JSONL content unchanged
+[2026-01-04 10:00:46] JSONL removed/renamed, re-establishing watch
+[2026-01-04 10:00:46] Successfully re-established JSONL watch after 50ms
+[2026-01-04 10:00:46] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 10:00:47] Import triggered by file change
+[2026-01-04 10:00:47] Starting auto-import...
+[2026-01-04 10:00:47] Skipping import: JSONL content unchanged
+[2026-01-04 10:04:35] Mutation detected: update vtprotobuf-1qe
+[2026-01-04 10:04:36] Export triggered by mutation events
+[2026-01-04 10:04:36] Starting export...
+[2026-01-04 10:04:36] Exported to JSONL
+[2026-01-04 10:04:36] JSONL removed/renamed, re-establishing watch
+[2026-01-04 10:04:36] Export complete
+[2026-01-04 10:04:36] Successfully re-established JSONL watch after 50ms
+[2026-01-04 10:04:36] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 10:04:37] Import triggered by file change
+[2026-01-04 10:04:37] Starting auto-import...
+[2026-01-04 10:04:37] Skipping import: JSONL content unchanged
+[2026-01-04 10:04:52] JSONL removed/renamed, re-establishing watch
+[2026-01-04 10:04:52] JSONL still missing after 50ms, retrying...
+[2026-01-04 10:04:53] JSONL still missing after 100ms, retrying...
+[2026-01-04 10:04:53] JSONL still missing after 200ms, retrying...
+[2026-01-04 10:04:53] JSONL still missing after 400ms, retrying...
+[2026-01-04 10:04:53] Failed to re-establish JSONL watch after all retries
+[2026-01-04 10:04:53] JSONL file created: /Users/den/Developer/vtprotobuf/.beads/issues.jsonl
+[2026-01-04 10:04:53] Watcher error: lstat /Users/den/Developer/vtprotobuf/.beads/issues.jsonl: no such file or directory
+[2026-01-04 10:04:53] Git HEAD change detected: /Users/den/Developer/vtprotobuf/.git/HEAD
+[2026-01-04 10:04:54] Import triggered by file change
+[2026-01-04 10:04:54] Starting auto-import...
+[2026-01-04 10:04:54] Skipping import: JSONL content unchanged
+[2026-01-04 10:04:58] Git HEAD change detected: /Users/den/Developer/vtprotobuf/.git/HEAD
+[2026-01-04 10:04:59] Import triggered by file change
+[2026-01-04 10:04:59] Starting auto-import...
+[2026-01-04 10:04:59] Skipping import: JSONL content unchanged
