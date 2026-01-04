@@ -12,6 +12,8 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/gofeaturespb"
 )
 
 type GeneratedFile struct {
@@ -49,6 +51,62 @@ func (b *GeneratedFile) ShouldIgnoreUnknownFields(message *protogen.Message) boo
 	ext := proto.GetExtension(message.Desc.Options(), vtproto.E_IgnoreUnknownFields)
 	ignoreUnknownFields, ok := ext.(bool)
 	return ok && ignoreUnknownFields
+}
+
+// IsLazy returns true if the field is marked with the lazy option.
+// Lazy fields are only parsed when first accessed, which is a performance
+// optimization for the opaque API.
+func (b *GeneratedFile) IsLazy(field *protogen.Field) bool {
+	if field == nil {
+		return false
+	}
+	opts, ok := field.Desc.Options().(*descriptorpb.FieldOptions)
+	if !ok || opts == nil {
+		return false
+	}
+	return opts.GetLazy()
+}
+
+// IsEditions returns true if the file uses the editions syntax (2023+).
+func (b *GeneratedFile) IsEditions(file *protogen.File) bool {
+	return file.Desc.Syntax() == protoreflect.Editions
+}
+
+// GetEdition returns the edition of the file if using editions syntax,
+// or EDITION_UNKNOWN otherwise.
+func (b *GeneratedFile) GetEdition(file *protogen.File) descriptorpb.Edition {
+	if !b.IsEditions(file) {
+		return descriptorpb.Edition_EDITION_UNKNOWN
+	}
+	if file.Proto == nil {
+		return descriptorpb.Edition_EDITION_UNKNOWN
+	}
+	return file.Proto.GetEdition()
+}
+
+// IsOpaque returns true if the message uses the opaque API.
+// In the opaque API, fields are private and accessed via getters/setters.
+func (b *GeneratedFile) IsOpaque(message *protogen.Message) bool {
+	return message.APILevel == gofeaturespb.GoFeatures_API_OPAQUE
+}
+
+// IsHybrid returns true if the message uses the hybrid API.
+// The hybrid API has both public fields and accessor methods.
+func (b *GeneratedFile) IsHybrid(message *protogen.Message) bool {
+	return message.APILevel == gofeaturespb.GoFeatures_API_HYBRID
+}
+
+// IsOpen returns true if the message uses the open API (default).
+// The open API has public fields that can be directly accessed.
+func (b *GeneratedFile) IsOpen(message *protogen.Message) bool {
+	return message.APILevel == gofeaturespb.GoFeatures_API_OPEN ||
+		message.APILevel == gofeaturespb.GoFeatures_API_LEVEL_UNSPECIFIED
+}
+
+// UsesAccessors returns true if the message uses accessor methods.
+// This is true for both hybrid and opaque APIs.
+func (b *GeneratedFile) UsesAccessors(message *protogen.Message) bool {
+	return b.IsOpaque(message) || b.IsHybrid(message)
 }
 
 func (b *GeneratedFile) Alloc(vname string, message *protogen.Message, isQualifiedIdent bool) {

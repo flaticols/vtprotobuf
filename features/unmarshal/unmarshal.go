@@ -563,6 +563,8 @@ func (p *unmarshal) fieldItem(field *protogen.Field, fieldname string, message *
 			buf := `dAtA[iNdEx:postIndex]`
 			p.decodeMessage(varname, buf, field.Message)
 		} else {
+			// Always use fast vtprotobuf decode for all message fields (including lazy).
+			// This provides maximum performance with no reflection overhead.
 			p.P(`if m.`, fieldname, ` == nil {`)
 			if p.ShouldPool(message) && p.ShouldPool(field.Message) {
 				p.P(`m.`, fieldname, ` = `, field.Message.GoIdent, `FromVTPool()`)
@@ -800,6 +802,12 @@ func (p *unmarshal) message(proto3 bool, message *protogen.Message) {
 	}
 
 	if message.Desc.IsMapEntry() {
+		return
+	}
+
+	// Skip opaque API messages - fields are private and cannot be accessed directly.
+	// The standard protobuf library's generated Unmarshal will be used instead.
+	if p.IsOpaque(message) {
 		return
 	}
 

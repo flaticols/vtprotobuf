@@ -1,0 +1,24 @@
+edition = "2023";
+
+import "google/protobuf/go_features.proto";
+
+option go_package = "testproto/editions";
+
+// File-level opaque API setting
+option features.(pb.go).api_level = API_OPAQUE;
+
+// Simple message using opaque API
+// vtprotobuf should NOT generate methods for this message
+// since fields are private
+message OpaqueMessage {
+  int32 id = 1;
+  string name = 2;
+  bytes data = 3;
+}
+
+// Opaque message with lazy field
+message OpaqueMessageWithLazy {
+  int32 id = 1;
+  // Lazy field in opaque API - full lazy semantics
+  OpaqueMessage nested = 2 [lazy = true];
+}

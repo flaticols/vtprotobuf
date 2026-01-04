@@ -11,6 +11,7 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/runtime/protoimpl"
+	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
 	"github.com/planetscale/vtprotobuf/generator/pattern"
@@ -71,10 +72,13 @@ type Generator struct {
 	local    map[protoreflect.FullName]bool
 }
 
-const SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+const SupportedFeatures = uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL) |
+	uint64(pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
 
 func NewGenerator(plugin *protogen.Plugin, featureNames []string, cfg *Config) (*Generator, error) {
 	plugin.SupportedFeatures = SupportedFeatures
+	plugin.SupportedEditionsMinimum = descriptorpb.Edition_EDITION_PROTO2
+	plugin.SupportedEditionsMaximum = descriptorpb.Edition_EDITION_2024
 
 	features, err := findFeatures(featureNames)
 	if err != nil {

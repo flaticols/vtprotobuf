@@ -51,6 +51,12 @@ func (p *equal) message(proto3 bool, message *protogen.Message) {
 		return
 	}
 
+	// Skip opaque API messages - fields are private and cannot be accessed directly.
+	// The standard protobuf library's generated Equal will be used instead.
+	if p.IsOpaque(message) {
+		return
+	}
+
 	p.once = true
 
 	ccTypeName := message.GoIdent.GoName
