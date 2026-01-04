@@ -228,4 +228,6 @@ func Test_Pool_Oneof_Bytes_Capacity(t *testing.T) {
 	oneof2, ok := msg.Test.(*OneofTest_Test4)
 	require.True(t, ok)
 	assert.Equal(t, smallData, oneof2.Test4)
+	// Verify capacity was preserved end-to-end (reused from pool after unmarshal)
+	assert.Equal(t, 1024, cap(oneof2.Test4), "capacity should be reused from pool after unmarshal")
 }
