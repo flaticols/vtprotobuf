@@ -196,6 +196,9 @@ func (m *IgnoreUnknownFieldsExtension) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.Foo = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
@@ -277,6 +280,9 @@ func (m *IgnoreUnknownFieldsExtension) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {

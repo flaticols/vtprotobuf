@@ -1026,6 +1026,9 @@ func (m *Test1) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.Sl = append(m.Sl, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
@@ -1320,6 +1323,9 @@ func (m *Slice2) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.C = append(m.C, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
 		case 4:
@@ -1387,6 +1393,9 @@ func (m *Slice2) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.E = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
@@ -1642,6 +1651,9 @@ func (m *Test1) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
@@ -1941,6 +1953,9 @@ func (m *Slice2) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -2012,6 +2027,9 @@ func (m *Slice2) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {

@@ -456,6 +456,9 @@ func (m *MemoryPoolExtension) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.Foo1 = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
@@ -644,6 +647,9 @@ func (m *MemoryPoolExtension) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {

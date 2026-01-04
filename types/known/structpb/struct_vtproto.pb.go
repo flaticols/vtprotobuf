@@ -1144,6 +1144,9 @@ func (m *Struct) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -1304,6 +1307,9 @@ func (m *Value) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.Kind = &structpb.Value_StringValue{StringValue: string(dAtA[iNdEx:postIndex])}
 			iNdEx = postIndex
@@ -1623,6 +1629,9 @@ func (m *Struct) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -1787,6 +1796,9 @@ func (m *Value) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
