@@ -191,6 +191,8 @@ var helpers = map[string]protogen.GoIdent{
 	"ErrInvalidLength":        {GoName: "ErrInvalidLength", GoImportPath: vtHelpersPackage},
 	"ErrIntOverflow":          {GoName: "ErrIntOverflow", GoImportPath: vtHelpersPackage},
 	"ErrUnexpectedEndOfGroup": {GoName: "ErrUnexpectedEndOfGroup", GoImportPath: vtHelpersPackage},
+	"ErrInvalidUTF8":          {GoName: "ErrInvalidUTF8", GoImportPath: vtHelpersPackage},
+	"ValidateUTF8":            {GoName: "ValidateUTF8", GoImportPath: vtHelpersPackage},
 }
 
 func (p *GeneratedFile) Helper(name string) protogen.GoIdent {

@@ -1691,6 +1691,9 @@ func (m *UnsafeTest_Sub1) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.S = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
@@ -1807,6 +1810,9 @@ func (m *UnsafeTest_Sub2) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.S = append(m.S, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
@@ -1972,6 +1978,9 @@ func (m *UnsafeTest_Sub3) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -2101,6 +2110,9 @@ func (m *UnsafeTest_Sub4) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.Foo = &UnsafeTest_Sub4_S{S: string(dAtA[iNdEx:postIndex])}
 			iNdEx = postIndex
@@ -2271,6 +2283,9 @@ func (m *UnsafeTest_Sub5) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -2299,6 +2314,9 @@ func (m *UnsafeTest_Sub5) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
 					}
 					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
 					iNdEx = postStringIndexmapvalue
@@ -2656,6 +2674,9 @@ func (m *UnsafeTest_Sub1) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -2773,6 +2794,9 @@ func (m *UnsafeTest_Sub2) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
@@ -2941,6 +2965,9 @@ func (m *UnsafeTest_Sub3) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -3073,6 +3100,9 @@ func (m *UnsafeTest_Sub4) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
@@ -3242,6 +3272,9 @@ func (m *UnsafeTest_Sub5) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -3274,6 +3307,9 @@ func (m *UnsafeTest_Sub5) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
 					}
 					if intStringLenmapvalue == 0 {
 						mapvalue = ""

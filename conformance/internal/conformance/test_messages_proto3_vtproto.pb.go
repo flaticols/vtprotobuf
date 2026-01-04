@@ -7775,6 +7775,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.OptionalString = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 15:
@@ -7970,6 +7973,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.OptionalStringPiece = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 25:
@@ -8001,6 +8007,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.OptionalCord = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
@@ -8916,6 +8925,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.RepeatedString = append(m.RepeatedString, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
 		case 45:
@@ -9186,6 +9198,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			m.RepeatedStringPiece = append(m.RepeatedStringPiece, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
 		case 55:
@@ -9217,6 +9232,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.RepeatedCord = append(m.RepeatedCord, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
@@ -10516,6 +10534,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -10544,6 +10565,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
 					}
 					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
 					iNdEx = postStringIndexmapvalue
@@ -10642,6 +10666,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
@@ -10770,6 +10797,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
@@ -10900,6 +10930,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -11029,6 +11062,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
 				} else if fieldNum == 2 {
@@ -11141,6 +11177,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
 					iNdEx = postStringIndexmapkey
@@ -13096,6 +13135,9 @@ func (m *TestAllTypesProto3) UnmarshalVT(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			m.OneofField = &TestAllTypesProto3_OneofString{OneofString: string(dAtA[iNdEx:postIndex])}
 			iNdEx = postIndex
@@ -15243,6 +15285,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -15439,6 +15484,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -15474,6 +15522,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
@@ -16393,6 +16444,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -16666,6 +16720,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -16701,6 +16758,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {
@@ -18004,6 +18064,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -18036,6 +18099,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
 					}
 					if intStringLenmapvalue == 0 {
 						mapvalue = ""
@@ -18138,6 +18204,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
@@ -18269,6 +18338,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
@@ -18403,6 +18475,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -18536,6 +18611,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
+					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
 					} else {
@@ -18652,6 +18730,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
@@ -20611,6 +20692,9 @@ func (m *TestAllTypesProto3) UnmarshalVTUnsafe(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
+			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			var stringValue string
 			if intStringLen > 0 {

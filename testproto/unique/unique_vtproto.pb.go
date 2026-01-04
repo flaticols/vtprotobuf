@@ -332,6 +332,9 @@ func (m *UniqueFieldExtension) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unique.Make[string](unsafe.String(&dAtA[iNdEx], intStringLen)).Value()
@@ -416,6 +419,9 @@ func (m *UniqueFieldExtension) UnmarshalVT(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
@@ -549,6 +555,9 @@ func (m *UniqueFieldExtension) UnmarshalVT(dAtA []byte) error {
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
 					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
+					}
 					if intStringLenmapvalue == 0 {
 						mapvalue = ""
 					} else {
@@ -653,6 +662,9 @@ func (m *UniqueFieldExtension) UnmarshalVTUnsafe(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
+			if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			var stringValue string
 			if intStringLen > 0 {
 				stringValue = unsafe.String(&dAtA[iNdEx], intStringLen)
@@ -737,6 +749,9 @@ func (m *UniqueFieldExtension) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapkey > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapkey]); err != nil {
+						return err
 					}
 					if intStringLenmapkey == 0 {
 						mapkey = ""
@@ -869,6 +884,9 @@ func (m *UniqueFieldExtension) UnmarshalVTUnsafe(dAtA []byte) error {
 					}
 					if postStringIndexmapvalue > l {
 						return io.ErrUnexpectedEOF
+					}
+					if err := protohelpers.ValidateUTF8(dAtA[iNdEx:postStringIndexmapvalue]); err != nil {
+						return err
 					}
 					if intStringLenmapvalue == 0 {
 						mapvalue = ""
