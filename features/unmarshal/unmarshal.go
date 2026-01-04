@@ -157,7 +157,7 @@ func (p *unmarshal) declareMapField(varName string, nullable bool, field *protog
 	}
 }
 
-func (p *unmarshal) mapField(varName string, field *protogen.Field, unique bool) {
+func (p *unmarshal) mapField(varName string, field *protogen.Field, unique bool, proto3 bool) {
 	switch field.Desc.Kind() {
 	case protoreflect.DoubleKind:
 		p.P(`var `, varName, `temp uint64`)
@@ -195,6 +195,12 @@ func (p *unmarshal) mapField(varName string, field *protogen.Field, unique bool)
 		p.P(`if postStringIndex`, varName, ` > l {`)
 		p.P(`return `, p.Ident("io", `ErrUnexpectedEOF`))
 		p.P(`}`)
+		// Add UTF-8 validation for proto3 string fields
+		if proto3 {
+			p.P(`if err := `, p.Helper("ValidateUTF8"), `(dAtA[iNdEx:postStringIndex`, varName, `]); err != nil {`)
+			p.P(`return err`)
+			p.P(`}`)
+		}
 		switch {
 		case p.unsafe:
 			p.P(`if intStringLen`, varName, ` == 0 {`)
@@ -433,6 +439,12 @@ func (p *unmarshal) fieldItem(field *protogen.Field, fieldname string, message *
 		p.P(`if postIndex > l {`)
 		p.P(`return `, p.Ident("io", `ErrUnexpectedEOF`))
 		p.P(`}`)
+		// Add UTF-8 validation for proto3 string fields
+		if proto3 {
+			p.P(`if err := `, p.Helper("ValidateUTF8"), `(dAtA[iNdEx:postIndex]); err != nil {`)
+			p.P(`return err`)
+			p.P(`}`)
+		}
 		str := "string(dAtA[iNdEx:postIndex])"
 		switch {
 		case p.unsafe:
@@ -527,9 +539,9 @@ func (p *unmarshal) fieldItem(field *protogen.Field, fieldname string, message *
 			p.P(`fieldNum := int32(wire >> 3)`)
 
 			p.P(`if fieldNum == 1 {`)
-			p.mapField("mapkey", field.Message.Fields[0], unique)
+			p.mapField("mapkey", field.Message.Fields[0], unique, proto3)
 			p.P(`} else if fieldNum == 2 {`)
-			p.mapField("mapvalue", field.Message.Fields[1], unique)
+			p.mapField("mapvalue", field.Message.Fields[1], unique, proto3)
 			p.P(`} else {`)
 			p.P(`iNdEx = entryPreIndex`)
 			p.P(`skippy, err := `, p.Helper("Skip"), `(dAtA[iNdEx:])`)

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"math/bits"
+	"unicode/utf8"
 )
 
 var (
@@ -15,7 +16,17 @@ var (
 	ErrIntOverflow = fmt.Errorf("proto: integer overflow")
 	// ErrUnexpectedEndOfGroup is returned when decoding a group end without a corresponding group start.
 	ErrUnexpectedEndOfGroup = fmt.Errorf("proto: unexpected end of group")
+	// ErrInvalidUTF8 is returned when decoding a string field that contains invalid UTF-8.
+	ErrInvalidUTF8 = fmt.Errorf("proto: invalid UTF-8 in string")
 )
+
+// ValidateUTF8 returns an error if the byte slice is not valid UTF-8.
+func ValidateUTF8(b []byte) error {
+	if !utf8.Valid(b) {
+		return ErrInvalidUTF8
+	}
+	return nil
+}
 
 // EncodeVarint encodes a uint64 into a varint-encoded byte slice and returns the offset of the encoded value.
 // The provided offset is the offset after the last byte of the encoded value.
