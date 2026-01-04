@@ -244,10 +244,7 @@ func (m *MessageWithOneof_StringChoice) CloneVT() isMessageWithOneof_Choice {
 		return (*MessageWithOneof_StringChoice)(nil)
 	}
 	r := new(MessageWithOneof_StringChoice)
-	if rhs := m.StringChoice; rhs != nil {
-		tmpVal := *rhs
-		r.StringChoice = &tmpVal
-	}
+	r.StringChoice = m.StringChoice
 	return r
 }
 
@@ -256,10 +253,7 @@ func (m *MessageWithOneof_IntChoice) CloneVT() isMessageWithOneof_Choice {
 		return (*MessageWithOneof_IntChoice)(nil)
 	}
 	r := new(MessageWithOneof_IntChoice)
-	if rhs := m.IntChoice; rhs != nil {
-		tmpVal := *rhs
-		r.IntChoice = &tmpVal
-	}
+	r.IntChoice = m.IntChoice
 	return r
 }
 
@@ -277,30 +271,12 @@ func (m *ImplicitFieldPresence) CloneVT() *ImplicitFieldPresence {
 		return (*ImplicitFieldPresence)(nil)
 	}
 	r := new(ImplicitFieldPresence)
-	if rhs := m.CurrencyCode; rhs != nil {
-		tmpVal := *rhs
-		r.CurrencyCode = &tmpVal
-	}
-	if rhs := m.Units; rhs != nil {
-		tmpVal := *rhs
-		r.Units = &tmpVal
-	}
-	if rhs := m.Scale; rhs != nil {
-		tmpVal := *rhs
-		r.Scale = &tmpVal
-	}
-	if rhs := m.IsActive; rhs != nil {
-		tmpVal := *rhs
-		r.IsActive = &tmpVal
-	}
-	if rhs := m.Rate; rhs != nil {
-		tmpVal := *rhs
-		r.Rate = &tmpVal
-	}
-	if rhs := m.Amount; rhs != nil {
-		tmpVal := *rhs
-		r.Amount = &tmpVal
-	}
+	r.CurrencyCode = m.CurrencyCode
+	r.Units = m.Units
+	r.Scale = m.Scale
+	r.IsActive = m.IsActive
+	r.Rate = m.Rate
+	r.Amount = m.Amount
 	if len(m.unknownFields) > 0 {
 		r.unknownFields = make([]byte, len(m.unknownFields))
 		copy(r.unknownFields, m.unknownFields)

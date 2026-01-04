@@ -242,7 +242,11 @@ func (p *clone) bodyForOneOf(ccTypeName string, field *protogen.Field) {
 
 	p.P("r", " := new(", ccTypeName, `)`)
 
-	if !isReference(false, field) {
+	// In oneof wrappers, scalar fields are never pointers (only messages and bytes are references)
+	// Don't use isReference() here as it checks HasPresence() which is wrong for Edition 2023 oneofs
+	fieldIsReference := field.Message != nil || field.Desc.Kind() == protoreflect.BytesKind ||
+		field.Desc.Cardinality() == protoreflect.Repeated
+	if !fieldIsReference {
 		p.P(`r.`, field.GoName, ` = m.`, field.GoName)
 		p.P(`return r`)
 		return
