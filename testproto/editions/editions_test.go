@@ -147,23 +147,23 @@ func TestExplicitFieldPresenceNil(t *testing.T) {
 	require.Nil(t, decoded.Amount)
 }
 
-// TestScalarTypesUnmarshal tests unmarshaling of all scalar types with default (IMPLICIT) presence
+// TestScalarTypesUnmarshal tests unmarshaling of all scalar types with default (EXPLICIT) presence
 func TestScalarTypesUnmarshal(t *testing.T) {
 	original := &ScalarTypes{
-		DoubleField:   3.14159,
-		FloatField:    2.71828,
-		Int32Field:    -12345,
-		Int64Field:    -9876543210,
-		Uint32Field:   54321,
-		Uint64Field:   9876543210,
-		Sint32Field:   -99999,
-		Sint64Field:   -8888888888,
-		Fixed32Field:  11111,
-		Fixed64Field:  22222222222,
-		Sfixed32Field: -33333,
-		Sfixed64Field: -4444444444,
-		BoolField:     true,
-		StringField:   "test string",
+		DoubleField:   proto.Float64(3.14159),
+		FloatField:    proto.Float32(2.71828),
+		Int32Field:    proto.Int32(-12345),
+		Int64Field:    proto.Int64(-9876543210),
+		Uint32Field:   proto.Uint32(54321),
+		Uint64Field:   proto.Uint64(9876543210),
+		Sint32Field:   proto.Int32(-99999),
+		Sint64Field:   proto.Int64(-8888888888),
+		Fixed32Field:  proto.Uint32(11111),
+		Fixed64Field:  proto.Uint64(22222222222),
+		Sfixed32Field: proto.Int32(-33333),
+		Sfixed64Field: proto.Int64(-4444444444),
+		BoolField:     proto.Bool(true),
+		StringField:   proto.String("test string"),
 		BytesField:    []byte{0x01, 0x02, 0x03, 0x04},
 	}
 
@@ -197,12 +197,12 @@ func TestScalarTypesUnmarshal(t *testing.T) {
 // TestRegularMessageUnmarshal tests unmarshaling of a regular message with nested messages
 func TestRegularMessageUnmarshal(t *testing.T) {
 	original := &RegularMessage{
-		Id:   12345,
-		Name: "test message",
+		Id:     proto.Int32(12345),
+		Name:   proto.String("test message"),
 		Values: []int64{1, 2, 3, 4, 5},
 		Nested: &NestedMessage{
-			Id:   999,
-			Name: "nested",
+			Id:   proto.Int32(999),
+			Name: proto.String("nested"),
 			Data: []byte{0xAA, 0xBB, 0xCC},
 		},
 		Metadata: map[string]int32{

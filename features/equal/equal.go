@@ -113,7 +113,14 @@ func (p *equal) message(proto3 bool, message *protogen.Message) {
 
 	for _, field := range message.Fields {
 		oneof := field.Oneof != nil && !field.Oneof.Desc.IsSynthetic()
-		nullable := field.Message != nil || (field.Oneof != nil && field.Oneof.Desc.IsSynthetic()) || (!proto3 && !oneof)
+		// Determine if field is nullable (pointer type):
+		// - Message fields are always pointers
+		// - Synthetic oneofs (proto3 optional) are pointers
+		// - Scalar fields with presence (proto2, proto3 optional, editions EXPLICIT) are pointers
+		// - Bytes are always slices (reference type but handled separately)
+		nullable := field.Message != nil ||
+			(field.Oneof != nil && field.Oneof.Desc.IsSynthetic()) ||
+			(isScalar(field.Desc.Kind()) && field.Desc.HasPresence() && !oneof)
 		if !oneof {
 			p.field(field, nullable)
 		}
