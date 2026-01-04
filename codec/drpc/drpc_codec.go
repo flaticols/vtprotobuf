@@ -40,7 +40,9 @@ func JSONMarshal(msg interface{}) ([]byte, error) {
 func JSONUnmarshal(buf []byte, msg interface{}) error {
 	// Reset the message before unmarshaling to match the semantics of the
 	// default protobuf codec, which replaces rather than merges messages.
-	if r, ok := msg.(protoResetter); ok {
+	if r, ok := msg.(vtprotoResetter); ok {
+		r.ResetVT()
+	} else if r, ok := msg.(protoResetter); ok {
 		r.Reset()
 	}
 	return protojson.Unmarshal(buf, msg.(proto.Message))
