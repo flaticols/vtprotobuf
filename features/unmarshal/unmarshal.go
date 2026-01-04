@@ -293,7 +293,6 @@ func (p *unmarshal) fieldItem(field *protogen.Field, fieldname string, message *
 	repeated := field.Desc.Cardinality() == protoreflect.Repeated
 	typ := p.noStarOrSliceType(field)
 	oneof := field.Oneof != nil && !field.Oneof.Desc.IsSynthetic()
-	nullable := field.Oneof != nil && field.Oneof.Desc.IsSynthetic()
 
 	switch field.Desc.Kind() {
 	case protoreflect.DoubleKind:
