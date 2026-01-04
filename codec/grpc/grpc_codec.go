@@ -12,6 +12,14 @@ type vtprotoMessage interface {
 	UnmarshalVT([]byte) error
 }
 
+type vtprotoResetter interface {
+	ResetVT()
+}
+
+type protoResetter interface {
+	Reset()
+}
+
 func (Codec) Marshal(v interface{}) ([]byte, error) {
 	vt, ok := v.(vtprotoMessage)
 	if !ok {
@@ -24,6 +32,13 @@ func (Codec) Unmarshal(data []byte, v interface{}) error {
 	vt, ok := v.(vtprotoMessage)
 	if !ok {
 		return fmt.Errorf("failed to unmarshal, message is %T (missing vtprotobuf helpers)", v)
+	}
+	// Reset the message before unmarshaling to match the semantics of the
+	// default protobuf codec, which replaces rather than merges messages.
+	if r, ok := v.(vtprotoResetter); ok {
+		r.ResetVT()
+	} else if r, ok := v.(protoResetter); ok {
+		r.Reset()
 	}
 	return vt.UnmarshalVT(data)
 }
