@@ -55,6 +55,8 @@ func (p *pool) message(message *protogen.Message) {
 	p.P(`func (m *`, ccTypeName, `) ResetVT() {`)
 	p.P(`if m != nil {`)
 	var saved []*protogen.Field
+	var oneofBytes []*protogen.Field // Track oneof bytes fields
+
 	for _, field := range message.Fields {
 		fieldName := field.GoName
 
@@ -74,10 +76,15 @@ func (p *pool) message(message *protogen.Message) {
 			p.P(fmt.Sprintf("f%d", len(saved)), ` := m.`, fieldName, `[:0]`)
 			saved = append(saved, field)
 		} else if field.Oneof != nil && !field.Oneof.Desc.IsSynthetic() {
-			if p.ShouldPool(field.Message) {
-				p.P(`if oneof, ok := m.`, field.Oneof.GoName, `.(*`, field.GoIdent, `); ok {`)
-				p.P(`oneof.`, fieldName, `.ReturnToVTPool()`)
-				p.P(`}`)
+			switch field.Desc.Kind() {
+			case protoreflect.MessageKind, protoreflect.GroupKind:
+				if p.ShouldPool(field.Message) {
+					p.P(`if oneof, ok := m.`, field.Oneof.GoName, `.(*`, field.GoIdent, `); ok {`)
+					p.P(`oneof.`, fieldName, `.ReturnToVTPool()`)
+					p.P(`}`)
+				}
+			case protoreflect.BytesKind:
+				oneofBytes = append(oneofBytes, field)
 			}
 		} else {
 			switch field.Desc.Kind() {
@@ -92,9 +99,40 @@ func (p *pool) message(message *protogen.Message) {
 		}
 	}
 
+	// Handle oneof bytes fields - save the oneof wrapper with preserved capacity
+	if len(oneofBytes) > 0 {
+		// Group by oneof
+		oneofGroups := make(map[string][]*protogen.Field)
+		for _, field := range oneofBytes {
+			oneofGroups[field.Oneof.GoName] = append(oneofGroups[field.Oneof.GoName], field)
+		}
+
+		for oneofName, fields := range oneofGroups {
+			p.P(`var saved`, oneofName, ` is`, ccTypeName, `_`, oneofName)
+			p.P(`switch c := m.`, oneofName, `.(type) {`)
+			for _, field := range fields {
+				p.P(`case *`, field.GoIdent, `:`)
+				p.P(`c.`, field.GoName, ` = c.`, field.GoName, `[:0]`)
+				p.P(`saved`, oneofName, ` = c`)
+			}
+			p.P(`}`)
+		}
+	}
+
 	p.P(`m.Reset()`)
 	for i, field := range saved {
 		p.P(`m.`, field.GoName, ` = `, fmt.Sprintf("f%d", i))
+	}
+
+	// Restore oneof bytes fields
+	if len(oneofBytes) > 0 {
+		oneofGroups := make(map[string][]*protogen.Field)
+		for _, field := range oneofBytes {
+			oneofGroups[field.Oneof.GoName] = append(oneofGroups[field.Oneof.GoName], field)
+		}
+		for oneofName := range oneofGroups {
+			p.P(`m.`, oneofName, ` = saved`, oneofName)
+		}
 	}
 	p.P(`}`)
 	p.P(`}`)

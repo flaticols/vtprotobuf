@@ -1049,7 +1049,14 @@ func (m *OneofTest) ResetVT() {
 		if oneof, ok := m.Test.(*OneofTest_Test3_); ok {
 			oneof.Test3.ReturnToVTPool()
 		}
+		var savedTest isOneofTest_Test
+		switch c := m.Test.(type) {
+		case *OneofTest_Test4:
+			c.Test4 = c.Test4[:0]
+			savedTest = c
+		}
 		m.Reset()
+		m.Test = savedTest
 	}
 }
 func (m *OneofTest) ReturnToVTPool() {
