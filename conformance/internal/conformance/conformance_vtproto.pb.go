@@ -1687,9 +1687,13 @@ func (m *ConformanceRequest) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := make([]byte, postIndex-iNdEx)
-			copy(v, dAtA[iNdEx:postIndex])
-			m.Payload = &ConformanceRequest_ProtobufPayload{ProtobufPayload: v}
+			if oneof, ok := m.Payload.(*ConformanceRequest_ProtobufPayload); ok {
+				oneof.ProtobufPayload = append(oneof.ProtobufPayload[:0], dAtA[iNdEx:postIndex]...)
+			} else {
+				v := make([]byte, postIndex-iNdEx)
+				copy(v, dAtA[iNdEx:postIndex])
+				m.Payload = &ConformanceRequest_ProtobufPayload{ProtobufPayload: v}
+			}
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -2057,9 +2061,13 @@ func (m *ConformanceResponse) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := make([]byte, postIndex-iNdEx)
-			copy(v, dAtA[iNdEx:postIndex])
-			m.Result = &ConformanceResponse_ProtobufPayload{ProtobufPayload: v}
+			if oneof, ok := m.Result.(*ConformanceResponse_ProtobufPayload); ok {
+				oneof.ProtobufPayload = append(oneof.ProtobufPayload[:0], dAtA[iNdEx:postIndex]...)
+			} else {
+				v := make([]byte, postIndex-iNdEx)
+				copy(v, dAtA[iNdEx:postIndex])
+				m.Result = &ConformanceResponse_ProtobufPayload{ProtobufPayload: v}
+			}
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
